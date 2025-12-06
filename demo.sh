@@ -11,4 +11,9 @@ KUBECONFIG=kubeconfig-1.yaml:kubeconfig-2.yaml "$kubectl" config view --flatten 
 [[ -f ./kubeconfig-1.yaml ]] && rm kubeconfig-1.yaml
 [[ -f ./kubeconfig-2.yaml ]] && rm kubeconfig-2.yaml
 
+./k1 label node cluster-1-worker deployment.group=worker
+./k1 label node cluster-1-worker2 deployment.group=worker
+./k2 label node cluster-2-worker deployment.group=worker
+./k2 label node cluster-2-worker2 deployment.group=worker
+
 >&2 echo "please use ./k1 and ./k2 for kubectl"

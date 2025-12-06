@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpbin
+  name: httpbin
+  namespace: stateless-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: httpbin
+  template:
+    metadata:
+      labels:
+        app: httpbin
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - httpbin
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - image: ghcr.io/mccutchen/go-httpbin:2.19
+        imagePullPolicy: IfNotPresent
+        name: httpbin
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+      nodeSelector:
+        deployment.group: worker
+      serviceAccount: default
+      serviceAccountName: default
