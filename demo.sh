@@ -1,13 +1,13 @@
 #!/bin/bash
 source ./env.sh
 
-sudo "$kind" create cluster --config ./cluster.yaml --name cluster-1
-sudo "$kind" create cluster --config ./cluster.yaml --name cluster-2
+sudo "$_KIND" create cluster --config ./cluster-1.yaml --name cluster-1
+sudo "$_KIND" create cluster --config ./cluster-2.yaml --name cluster-2
 
-sudo "$kind" get kubeconfig --name cluster-1 > kubeconfig-1.yaml
-sudo "$kind" get kubeconfig --name cluster-2 > kubeconfig-2.yaml
+sudo "$_KIND" get kubeconfig --name cluster-1 > kubeconfig-1.yaml
+sudo "$_KIND" get kubeconfig --name cluster-2 > kubeconfig-2.yaml
 
-KUBECONFIG=kubeconfig-1.yaml:kubeconfig-2.yaml "$kubectl" config view --flatten > kubeconfig
+KUBECONFIG=kubeconfig-1.yaml:kubeconfig-2.yaml "$_KUBECTL" config view --flatten > kubeconfig
 [[ -f ./kubeconfig-1.yaml ]] && rm kubeconfig-1.yaml
 [[ -f ./kubeconfig-2.yaml ]] && rm kubeconfig-2.yaml
 
