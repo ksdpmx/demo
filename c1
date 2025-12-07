@@ -1,0 +1,4 @@
+#!/bin/bash
+source ./env.sh
+
+"$cilium" --kubeconfig ./kubeconfig --context kind-cluster-1 "$@"

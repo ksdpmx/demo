@@ -4,7 +4,7 @@ metadata:
   labels:
     app: httpbin
   name: httpbin
-  namespace: stateless-service
+  namespace: stateless-services
 spec:
   ports:
   - name: http

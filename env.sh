@@ -2,3 +2,4 @@
 
 kind="./kind"
 kubectl="./kubectl"
+cilium="./cilium"
