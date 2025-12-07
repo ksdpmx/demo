@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: httpbin
-    role: server
-  name: httpbin
-  namespace: stateless-services
+    app: curl
+    role: client
+  name: curl
+  namespace: operations
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: httpbin
-      role: server
+      app: curl
+      role: client
   template:
     metadata:
       labels:
-        app: httpbin
-        role: server
+        app: curl
+        role: client
     spec:
       affinity:
         podAntiAffinity:
@@ -27,17 +27,16 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - httpbin
+                  - curl
               topologyKey: kubernetes.io/hostname
             weight: 100
       containers:
-      - image: ghcr.io/ksdpmx/httpbin:2afa380
+      - image: ghcr.io/ksdpmx/curl:6af1a00
         imagePullPolicy: IfNotPresent
-        name: httpbin
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
+        command:
+        - tail
+        - -f
+        name: curl
       nodeSelector:
         deployment.group: worker
       serviceAccount: default
