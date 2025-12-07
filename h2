@@ -2,4 +2,4 @@
 _ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${_ROOT_DIR}/env.sh"
 
-"$_KUBECTL" --kubeconfig "$_KUBECONFIG" --context kind-cluster-2 "$@"
+"$_HELM" --kubeconfig "$_KUBECONFIG" --kube-context kind-cluster-2 "$@"

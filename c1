@@ -1,4 +1,5 @@
 #!/bin/bash
-source ./env.sh
+_ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${_ROOT_DIR}/env.sh"
 
-"$cilium" --kubeconfig ./kubeconfig --context kind-cluster-1 "$@"
+"$_CILIUM" --kubeconfig "$_KUBECONFIG" --context kind-cluster-1 -n cilium "$@"
